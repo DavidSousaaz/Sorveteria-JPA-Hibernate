@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Entity
+@Entity(name = "tb_itemPedido")
 @Getter
 @Setter
 public class ItemPedido {
