@@ -49,7 +49,7 @@ public class TelaSorvetes extends JFrame {
 	}
 
 	private void addJLabelTitulo() {
-		JLabel jbTitulo = new JLabel("Lista de sorvetes");
+		JLabel jbTitulo = new JLabel("Lista de Gelados");
 		jbTitulo.setBounds(0, 30, 480, 30);
 		jbTitulo.setHorizontalAlignment(JLabel.CENTER);
 		jbTitulo.setFont(new Font("Arial", Font.BOLD, 20));

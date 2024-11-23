@@ -67,7 +67,7 @@ public class TelaGenericaCliente extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaClientes("");
+			new TelaInicial();
 		}
 	}
 

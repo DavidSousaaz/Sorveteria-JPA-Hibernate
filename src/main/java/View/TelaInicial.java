@@ -79,7 +79,10 @@ public class TelaInicial extends JFrame{
 	private class OuvintePedidos implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			new TelaPedidos(); //criar tela de pedidos e botar os parametros de entrada
+			new TelaPedidos(""); //criar tela de pedidos e botar os parametros de entrada
 		}
+	}
+	public static void main(String[] args) {
+		new TelaInicial();
 	}
 }
