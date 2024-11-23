@@ -13,15 +13,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class TelaSorvetes extends JFrame {
+public class TelaClientes extends JFrame {
 
 	protected JTable tabela;
 	private DefaultTableModel modelo;
 	private JScrollPane painelTabela;
 
-	//private SorveteDAO sorveteDAO = SorveteDAO.getInstance();
+	//private ClienteDAO clienteDAO = ClienteDAO.getInstance();
 
-	public TelaSorvetes(String sorvetes) {
+	public TelaClientes(String clientes) {
 		setTitle("Menu Inicial");
 		setSize(480, 480);
 		setLayout(null);
@@ -29,18 +29,18 @@ public class TelaSorvetes extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		addJLabelTitulo();
-		addTabelaSorvetes();
+		addTabelaClientes();
 		addJButtonAdicionar();
 		addJButtonEditar();
 		addJButtonDeletar();
 		addJButtonVisualizar();
-		popularTabela(sorvetes);
+		popularTabela(clientes);
 		setVisible(true);
 	}
 
-	private void addTabelaSorvetes() {
+	private void addTabelaClientes() {
 		modelo = new DefaultTableModel();
-		modelo.setColumnIdentifiers(new String[] { "Sabor", "Tipo", "Preço" });
+		modelo.setColumnIdentifiers(new String[] { "Nome", "Telefone", "Email" });
 		tabela = new JTable(modelo);
 		tabela.setFont(new Font("Arial", Font.PLAIN, 17));
 		painelTabela = new JScrollPane(tabela);
@@ -49,7 +49,7 @@ public class TelaSorvetes extends JFrame {
 	}
 
 	private void addJLabelTitulo() {
-		JLabel jbTitulo = new JLabel("Lista de sorvetes");
+		JLabel jbTitulo = new JLabel("Lista de clientes");
 		jbTitulo.setBounds(0, 30, 480, 30);
 		jbTitulo.setHorizontalAlignment(JLabel.CENTER);
 		jbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -97,37 +97,37 @@ public class TelaSorvetes extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			if (tabela.getSelectedRow() == -1) {
-				JOptionPane.showMessageDialog(null, "Selecione um sorvete");
+				JOptionPane.showMessageDialog(null, "Selecione um cliente");
 			} else {
-				/*Sorvete sorveteSelecionado = sorveteDAO.getSorvetes().get(tabela.getSelectedRow());
+				/*Cliente clienteSelecionado = clienteDAO.getClientes().get(tabela.getSelectedRow());
 				dispose();
-				new TelaViewSorvete(sorveteSelecionado);*/
+				new TelaViewCliente(clienteSelecionado);*/
 
 			}
 		}
 
 	}
 	
-	private void popularTabela(String sorvetes) {
+	private void popularTabela(String clientes) {
 		
-		if(sorvetes.equalsIgnoreCase("")) {
-			/*for (Sorvete a : sorveteDAO.getSorvetes()) {
+		if(clientes.equalsIgnoreCase("")) {
+			/*for (Cliente a : clienteDAO.getClientes()) {
 				adicionarLinhaTabela(a);
 			}*/
-		}else if(sorvetes.equalsIgnoreCase("deletados")) {
-			/*for (Sorvete a : sorveteDAO.getSorvetesDeletados()) {
-				adicionarLinhaTabela(a);  nao sei rpa que serve
+		}else if(clientes.equalsIgnoreCase("deletados")) {
+			/*for (Clientes a : clienteDAO.getClientesDeletados()) {
+				adicionarLinhaTabela(a); nao sei pra que serve
 			}*/
 		}	
 
 	}
 
-	/*public void adicionarLinhaTabela(Sorvete sorvete) {
+	/*public void adicionarLinhaTabela(Cliente cliente) {
 
 		Object[] linha = new Object[3];
-		linha[0] = sorvete.getSabor();
-		linha[1] = sorvete.getTipo();
-		linha[2] = sorvete.getPreço();
+		linha[0] = cliente.getNome();
+		linha[1] = cliente.getTelefone();
+		linha[2] = cliente.getEmail();
 
 		modelo.addRow(linha);
 
@@ -143,11 +143,11 @@ public class TelaSorvetes extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			if (tabela.getSelectedRow() == -1) {
-				JOptionPane.showMessageDialog(null, "Selecione um sorvete");
+				JOptionPane.showMessageDialog(null, "Selecione um cliente");
 			} /*else {
-				Sorvete sorveteSelecionado = sorveteDAO.getSorvetes().get(tabela.getSelectedRow());
+				Cliente clienteSelecionado = clienteDAO.getClientes().get(tabela.getSelectedRow());
 				dispose();
-				new TelaEditSorvete(sorveteSelecionado, tabela);
+				new TelaEditCliente(clienteSelecionado, tabela);
 
 			}*/
 		}
@@ -158,7 +158,7 @@ public class TelaSorvetes extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaAddSorvete();
+			new TelaAddCliente();
 
 		}
 	}
@@ -167,12 +167,12 @@ public class TelaSorvetes extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			if (tabela.getSelectedRow() == -1) {
-				JOptionPane.showMessageDialog(null, "Selecione um sorvete");
+				JOptionPane.showMessageDialog(null, "Selecione um cliente");
 			} else {
-				/*sorveteDAO.deletarSorvete(tabela.getSelectedRow());
+				/*clienteDAO.deletarCliente(tabela.getSelectedRow());
 				repaint();*/
 				dispose();
-				new TelaInicial(); 
+				new TelaInicial();
 			}
 		}
 

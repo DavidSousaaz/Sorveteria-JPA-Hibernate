@@ -6,14 +6,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class TelaGenericaSorvete extends JFrame {
+public class TelaGenericaCliente extends JFrame {
 
-	public TelaGenericaSorvete() {
+	public TelaGenericaCliente() {
 		setTitle("");
 		setSize(380, 420);
 		setLayout(null);
@@ -24,33 +23,33 @@ public class TelaGenericaSorvete extends JFrame {
 		addJLabelSabor();
 		addJLabelTipo();
 		addJLabelPreço();
-		addJTextFieldSabor();
-		addJTextFieldTipo();
-		addJTextFieldPreço();
+		addJTextFieldNome();
+		addJTextFieldTelefone();
+		addJTextFieldEmail();
 		setVisible(true);
 	}
 
-	protected JTextField jtfSabor;
-	protected JComboBox<String> cBTipo;
-	protected JTextField jtfPreço;
-	protected String sabor;
-	protected String tipo;
-	protected String preço;
+	protected JTextField jtfNome;
+	protected JTextField jtfTelefone;
+	protected JTextField jtfEmail;
+	protected String nome;
+	protected String telefone;
+	protected String email;
 
 	private void addJLabelSabor() {
-		JLabel jbSabor = new JLabel("Sabor: ");
+		JLabel jbSabor = new JLabel("Nome: ");
 		jbSabor.setBounds(30, 90, 120, 30);
 		add(jbSabor);
 	}
 
 	private void addJLabelTipo() {
-		JLabel jbTipo = new JLabel("Tipo: ");
+		JLabel jbTipo = new JLabel("Telefone: ");
 		jbTipo.setBounds(30, 160, 120, 30);
 		add(jbTipo);
 	}
 
 	private void addJLabelPreço() {
-		JLabel jbPreço = new JLabel("Preço: ");
+		JLabel jbPreço = new JLabel("Email: ");
 		jbPreço.setBounds(30, 230, 120, 30);
 		add(jbPreço);
 	}
@@ -68,19 +67,19 @@ public class TelaGenericaSorvete extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-			new TelaSorvetes("");  
+			new TelaClientes("");
 		}
 	}
 
-	private void addJTextFieldSabor() {
-		jtfSabor = new JTextField();
-		jtfSabor.setBounds(30, 120, 310, 30);
-		OuvinteJTFSabor ouvinte = new OuvinteJTFSabor();
-		jtfSabor.addFocusListener(ouvinte);
-		add(jtfSabor);
+	private void addJTextFieldNome() {
+		jtfNome = new JTextField();
+		jtfNome.setBounds(30, 120, 310, 30);
+		OuvinteJTFNome ouvinte = new OuvinteJTFNome();
+		jtfNome.addFocusListener(ouvinte);
+		add(jtfNome);
 	}
 
-	private class OuvinteJTFSabor implements FocusListener {
+	private class OuvinteJTFNome implements FocusListener {
 
 		@Override
 		public void focusGained(FocusEvent e) {
@@ -88,21 +87,20 @@ public class TelaGenericaSorvete extends JFrame {
 
 		@Override
 		public void focusLost(FocusEvent e) {
-			sabor = (String) jtfSabor.getText();
+			nome = (String) jtfNome.getText();
 		}
 
 	}
 
-	private void addJTextFieldTipo() {
-		String[] tipos = {"Picolé", "Sorvete", "Sundae"};
-		cBTipo = new JComboBox<>(tipos);
-		cBTipo.setBounds(30, 190, 310, 30);
-		OuvinteJTFTipo ouvinte = new OuvinteJTFTipo();
-		cBTipo.addFocusListener(ouvinte);
-		add(cBTipo);
+	private void addJTextFieldTelefone() {
+		jtfTelefone = new JTextField();
+		jtfTelefone.setBounds(30, 190, 310, 30);
+		OuvinteJTFTelefone ouvinte = new OuvinteJTFTelefone();
+		jtfTelefone.addFocusListener(ouvinte);
+		add(jtfTelefone);
 	}
 
-	private class OuvinteJTFTipo implements FocusListener {
+	private class OuvinteJTFTelefone implements FocusListener {
 
 		@Override
 		public void focusGained(FocusEvent e) {
@@ -110,21 +108,21 @@ public class TelaGenericaSorvete extends JFrame {
 
 		@Override
 		public void focusLost(FocusEvent e) {			
-			tipo = (String) cBTipo.getSelectedItem();
+			telefone = (String) jtfTelefone.getText();
 		
 		}
 
 	}
 
-	private void addJTextFieldPreço() {
-		jtfPreço = new JTextField();
-		jtfPreço.setBounds(30, 260, 310, 30);
-		OuvinteJTFPreço ouvinte = new OuvinteJTFPreço();
-		jtfPreço.addFocusListener(ouvinte);
-		add(jtfPreço);
+	private void addJTextFieldEmail() {
+		jtfEmail = new JTextField();
+		jtfEmail.setBounds(30, 260, 310, 30);
+		OuvinteJTFEmail ouvinte = new OuvinteJTFEmail();
+		jtfEmail.addFocusListener(ouvinte);
+		add(jtfEmail);
 	}
 
-	private class OuvinteJTFPreço implements FocusListener {
+	private class OuvinteJTFEmail implements FocusListener {
 
 		@Override
 		public void focusGained(FocusEvent e) {
@@ -132,7 +130,7 @@ public class TelaGenericaSorvete extends JFrame {
 
 		@Override
 		public void focusLost(FocusEvent e) {
-			preço = jtfPreço.getText();
+			email = jtfEmail.getText();
 		}
 
 	}

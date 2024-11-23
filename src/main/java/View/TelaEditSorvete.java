@@ -14,7 +14,7 @@ public class TelaEditSorvete extends TelaGenericaSorvete {
 
 	//private Sorvete sorveteEditar;
 
-	//List<Sorvete> listaDeSorvetes = SorveteDAO.getInstance().getContatos();
+	//List<Sorvete> listaDeSorvetes = SorveteDAO.getInstance().getSorvetes();
 
 	private JTable tabela;
 
@@ -62,7 +62,7 @@ public class TelaEditSorvete extends TelaGenericaSorvete {
 				}
 
 				dispose();
-				new TelaInicial("");
+				new TelaInicial();
 			}*/
 		}
 	}

@@ -9,18 +9,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class TelaAddSorvete extends TelaGenericaSorvete{
+public class TelaAddCliente extends TelaGenericaCliente{
 
-	//List<Sorvete> listaDeSorvetes = SorveteDAO.getInstance().getSorvetes();
+	//List<Cliente> listaDeClientes = ClienteDAO.getInstance().getClientes();
 
-	public TelaAddSorvete() {
+	public TelaAddCliente() {
 		super();
 		addJLabelTitulo();
 		addJButtonAdicionar();
 	}
 
 	private void addJLabelTitulo() {
-		JLabel jbTitulo = new JLabel("Adicionar Gelado");
+		JLabel jbTitulo = new JLabel("Adicionar Cliente");
 		jbTitulo.setBounds(0, 30, 380, 30);
 		jbTitulo.setHorizontalAlignment(JLabel.CENTER);
 		jbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -39,14 +39,12 @@ public class TelaAddSorvete extends TelaGenericaSorvete{
 	private class OuvinteAdd implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			if (jtfSabor == null || jtfSabor.getText().equals("") ) {
-				JOptionPane.showMessageDialog(null, "Necessário informar o sabor!");
-			} else if(jtfPreço == null || jtfPreço.getText().equals("")){ 
-				JOptionPane.showMessageDialog(null, "Necessário informar o preço!");
-			}else {
-				//SorveteDTO c = new SorveteDTO(sabor, tipo, preço);
-				//SorveteDAO.getInstance().cadastrarSorvete(c);
-				JOptionPane.showMessageDialog(null, "Sorvete adicionado com sucesso!");
+			if (jtfNome == null || jtfNome.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Necessário informar o nome!");
+			} else {
+				/*ClienteDTO c = new ClienteDTO(nome, telefone, email);
+				ClienteDAO.getInstance().cadastrarCliente(c);
+				JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso!");*/
 				dispose();
 				new TelaInicial();
 			}
