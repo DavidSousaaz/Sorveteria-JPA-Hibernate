@@ -1,12 +1,10 @@
 package Model;
 
+import lombok.*;
+
 import javax.persistence.*;
-
-import lombok.Getter;
-import lombok.Setter;
-
-import java.math.BigDecimal;
-import java.util.List;
+import java.math.*;
+import java.util.*;
 
 @Entity(name = "tb_sorvete")
 @Getter

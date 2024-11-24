@@ -1,11 +1,9 @@
 package Model;
 
+import lombok.*;
+
 import javax.persistence.*;
-
-import lombok.Getter;
-import lombok.Setter;
-
-import java.math.BigDecimal;
+import java.math.*;
 
 @Entity(name = "tb_itemPedido")
 @Getter

@@ -5,31 +5,28 @@
                                  http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="SorveteriaPU">
-    
+
         <class>com.sorveteria.entidade.Cliente</class>
         <class>com.sorveteria.entidade.Pedido</class>
         <class>com.sorveteria.entidade.ItemPedido</class>
         <class>com.sorveteria.entidade.Sorvete</class>
-    	
+
         <!-- Configuração do banco de dados -->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sorveteria"/>
-            <property name="javax.persistence.jdbc.user" value="USUARIOO"/>
-            <property name="javax.persistence.jdbc.password" value="SENHAAA"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="SENHA"/>
 
             <!-- Configuração do Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
-
             <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- Criação ou atualização das tabelas -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
 
-            <!-- Configuração do pool de conexões -->
             <property name="hibernate.c3p0.min_size" value="5"/>
             <property name="hibernate.c3p0.max_size" value="20"/>
 
-            <!-- Desabilita cache de segundo nível, se necessário -->
             <property name="hibernate.cache.use_second_level_cache" value="false"/>
         </properties>
     </persistence-unit>

@@ -1,8 +1,7 @@
 package View;
 
-import java.awt.Font;
-
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
 
 
 

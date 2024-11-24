@@ -1,10 +1,9 @@
 package View;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.table.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class TelaPedidos extends JFrame {
 

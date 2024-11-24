@@ -1,11 +1,9 @@
 package Model;
 
+import lombok.*;
+
 import javax.persistence.*;
-
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
+import java.util.*;
 
 @Entity(name = "tb_cliente")
 @Getter
