@@ -1,6 +1,5 @@
 package Model;
 
-import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -8,9 +7,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity(name = "tb_pedido")
-@Getter
-@Setter
 public class Pedido {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,5 +46,45 @@ public class Pedido {
             soma = soma.add(item.getPrecoUnitario().multiply(BigDecimal.valueOf(item.getQuantidade())));
         }
         this.total = soma; // Atribui a soma ao total do pedido
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
     }
 }
