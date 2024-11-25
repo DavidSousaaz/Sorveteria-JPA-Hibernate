@@ -1,8 +1,6 @@
 package Util;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 
 public class HibernateUtil {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("SorveteriaPU");

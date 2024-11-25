@@ -1,17 +1,26 @@
 package View;
 
+import Model.*;
+import controller.*;
+
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class TelaPedidos extends JFrame {
+
+    private SorveteController sorveteController = new SorveteController();
+    private ClienteController clienteController = new ClienteController();
+    private  ItemPedidoController itemPedidoController = new ItemPedidoController();
+    private PedidoController pedidoController = new PedidoController();
 
     private JTable tabela;
     private DefaultTableModel modelo;
     private JScrollPane painelTabela;
 
-    public TelaPedidos(String sorvetes) {
+    public TelaPedidos(List<Sorvete> sorvetes) {
         setTitle("Lista de Sorvetes");
         setSize(480, 480);
         setLayout(null);
@@ -54,6 +63,9 @@ public class TelaPedidos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gerarPedido();
+                dispose();
+                new TelaPedidos(sorveteController.listarTodosSorvetes());
+
             }
         });
         add(jbGerarPedido);
@@ -66,7 +78,7 @@ public class TelaPedidos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new TelaViewPedidos(); // Supondo que você já tenha a classe TelaViewPedidos
+                new TelaViewPedidos(pedidoController.listarTodosPedidos());
             }
         });
         add(jbVisualizarPedidos);
@@ -85,10 +97,29 @@ public class TelaPedidos extends JFrame {
         add(jbVoltar);
     }
 
-    private void popularTabela(String sorvetes) {
-      // logica para o populador tabela
-      // modelo.addRow(new Object[] { "Chocolate", "Sundae", 10.50 });
-      
+    private void popularTabela(List<Sorvete> sorvetes) {
+
+        for (Sorvete a : sorvetes) {
+            adicionarLinhaTabela(a);
+        }
+
+    }
+
+    public void adicionarLinhaTabela(Sorvete sorvete) {
+
+        Object[] linha = new Object[3];
+        linha[0] = sorvete.getSabor();
+        linha[1] = sorvete.getTipo();
+        linha[2] = sorvete.getPreco();
+
+        modelo.addRow(linha);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
 
     private void gerarPedido() {
@@ -99,15 +130,15 @@ public class TelaPedidos extends JFrame {
             return;
         }
 
-        String sabor = (String) modelo.getValueAt(linhaSelecionada, 0);
-        String tipo = (String) modelo.getValueAt(linhaSelecionada, 1);
-        double preco = (double) modelo.getValueAt(linhaSelecionada, 2);
+        Sorvete sorveteSelecionado = sorveteController.listarTodosSorvetes().get(tabela.getSelectedRow());
 
         String nomeCliente = JOptionPane.showInputDialog(this, "Informe o nome do cliente:");
         if (nomeCliente == null || nomeCliente.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nome do cliente não pode ser vazio!");
             return;
         }
+
+        Cliente clientePedido = clienteController.buscarClientePorNome(nomeCliente);
 
         String quantidadeStr = JOptionPane.showInputDialog(this, "Informe a quantidade:");
         if (quantidadeStr == null || quantidadeStr.trim().isEmpty()) {
@@ -126,13 +157,22 @@ public class TelaPedidos extends JFrame {
             return;
         }
 
-        double total = preco * quantidade;
-        JOptionPane.showMessageDialog(this, "Pedido gerado com sucesso!\n"
-                + "Cliente: " + nomeCliente + "\n"
-                + "Sabor: " + sabor + "\n"
-                + "Tipo: " + tipo + "\n"
-                + "Quantidade: " + quantidade + "\n"
-                + "Preço Total: R$ " + total);
+        Pedido pedido = new Pedido();
+        pedido.setDataHora(java.time.LocalDateTime.now());
+        pedido.setCliente(clientePedido);
+
+        ItemPedido itemPedido = new ItemPedido();
+        itemPedido.setQuantidade(quantidade);
+        itemPedido.setSorvete(sorveteSelecionado);
+        itemPedido.setPrecoUnitario(sorveteSelecionado.getPreco());
+        pedido.adicionarItem(itemPedido);
+
+        itemPedidoController.salvarItemPedido(itemPedido);
+
+        pedidoController.salvarPedido(pedido);
+
+        JOptionPane.showMessageDialog(null, "Pedido foi gerado com sucesso!");
+
     }
 
 }

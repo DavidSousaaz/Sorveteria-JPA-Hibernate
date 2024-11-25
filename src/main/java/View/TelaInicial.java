@@ -1,11 +1,20 @@
 package View;
 
+import Model.*;
+import controller.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 
 public class TelaInicial extends JFrame{
+
+	private List<Cliente> clienteList = new ClienteController().listarTodosClientes();
+	private List<Sorvete> sorveteList = new SorveteController().listarTodosSorvetes();
+
+
 	public TelaInicial() {
 		setTitle("Menu");
 		setSize(360, 250);
@@ -41,7 +50,8 @@ public class TelaInicial extends JFrame{
 	private class OuvinteSorvetes implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			new TelaSorvetes(""); //colocar o parametro de entrada certo
+			new TelaSorvetes(sorveteList); //colocar o parametro de entrada certo
+			dispose();
 		}
 	}
 		
@@ -58,8 +68,8 @@ public class TelaInicial extends JFrame{
 	private class OuvinteClientes implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			new TelaClientes(""); //colocar o parametro de entrada certo
-			
+			new TelaClientes(clienteList); //colocar o parametro de entrada certo
+			dispose();
 		}
 	}
 	
@@ -75,10 +85,8 @@ public class TelaInicial extends JFrame{
 	private class OuvintePedidos implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			new TelaPedidos(""); //criar tela de pedidos e botar os parametros de entrada
+			new TelaPedidos(sorveteList); //criar tela de pedidos e botar os parametros de entrada
+			dispose();
 		}
-	}
-	public static void main(String[] args) {
-		new TelaInicial();
 	}
 }

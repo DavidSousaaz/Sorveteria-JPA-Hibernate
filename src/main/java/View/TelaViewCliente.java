@@ -1,13 +1,16 @@
 package View;
 
+import Model.*;
+
 import javax.swing.*;
 import java.awt.*;
 
 
 
 public class TelaViewCliente extends TelaGenericaCliente{
-	/*public TelaViewCliente(Cliente cliente) {
+	public TelaViewCliente(Cliente cliente) {
 		super();
+		super.setCliente(cliente);
 		jtfNome.setText(cliente.getNome());
 		jtfTelefone.setText(cliente.getTelefone());
 		jtfEmail.setText(cliente.getEmail());
@@ -15,7 +18,7 @@ public class TelaViewCliente extends TelaGenericaCliente{
 		jtfTelefone.setEnabled(false);
 		jtfEmail.setEnabled(false);
 		addJLabelTitulo();
-	}*/
+	}
 
 	private void addJLabelTitulo() {
 		JLabel jbTitulo = new JLabel("Visualizar Cliente");

@@ -1,18 +1,22 @@
 package View;
 
+import Model.*;
+import controller.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class TelaEditCliente extends TelaGenericaCliente {
 
-	//private Cliente clienteEditar;
+	private ClienteController clienteController = new ClienteController();
 
-	//List<Cliente> listaDeClientes = ClienteDAO.getInstance().getCliente();
+	private Cliente clienteEditar;
+
 
 	private JTable tabela;
 
-	/*public TelaEditCliente(Cliente clienteEditar, JTable tabela) {
+	public TelaEditCliente(Cliente clienteEditar, JTable tabela) {
 		super();
 		this.tabela = tabela;
 		this.clienteEditar = clienteEditar;
@@ -21,7 +25,7 @@ public class TelaEditCliente extends TelaGenericaCliente {
 		jtfEmail.setText(clienteEditar.getEmail());
 		addJLabelTitulo();
 		addJButtonEditar();
-	}*/
+	}
 
 	private void addJLabelTitulo() {
 		JLabel jbTitulo = new JLabel("Editar Cliente");
@@ -46,13 +50,11 @@ public class TelaEditCliente extends TelaGenericaCliente {
 			if (jtfNome == null || jtfNome.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Necessário informar o nome!");
 			} else {
-				/*boolean edicao = ClienteDAO.getInstance().editarCliente(clienteEditar, new Cliente(nome, telefone, email));
-				if (edicao == true) {
-					JOptionPane.showMessageDialog(null, "Cliente editado com sucesso!");
-				} else {
-					JOptionPane.showMessageDialog(null, "Não foi possível editar o cliente!");
-				}*/
-
+				clienteEditar.setNome(jtfNome.getText());
+				clienteEditar.setTelefone(jtfTelefone.getText());
+				clienteEditar.setEmail(jtfEmail.getText());
+				clienteController.salvarCliente(clienteEditar);
+				JOptionPane.showMessageDialog(null, "Informações editadas com sucesso!");
 				dispose();
 				new TelaInicial();
 			}

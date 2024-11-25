@@ -1,12 +1,15 @@
 package View;
 
+import Model.*;
+import controller.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class TelaAddCliente extends TelaGenericaCliente{
 
-	//List<Cliente> listaDeClientes = ClienteDAO.getInstance().getClientes();
+	private ClienteController clienteController = new ClienteController();
 
 	public TelaAddCliente() {
 		super();
@@ -37,9 +40,13 @@ public class TelaAddCliente extends TelaGenericaCliente{
 			if (jtfNome == null || jtfNome.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Necessário informar o nome!");
 			} else {
-				/*ClienteDTO c = new ClienteDTO(nome, telefone, email);
-				ClienteDAO.getInstance().cadastrarCliente(c);
-				JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso!");*/
+				Cliente c = new Cliente();
+				c.setNome(jtfNome.getText());
+				c.setTelefone(jtfTelefone.getText());
+				c.setEmail(jtfEmail.getText());
+
+				clienteController.salvarCliente(c);
+				JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso!");
 				dispose();
 				new TelaInicial();
 			}

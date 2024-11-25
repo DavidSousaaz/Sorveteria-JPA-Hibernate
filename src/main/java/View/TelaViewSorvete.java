@@ -1,21 +1,24 @@
 package View;
 
+import Model.*;
+
 import javax.swing.*;
 import java.awt.*;
 
 
 
 public class TelaViewSorvete extends TelaGenericaSorvete {
-	/*public TelaViewSorvete(Sorvete sorvete) {
+	public TelaViewSorvete(Sorvete sorvete) {
 		super();
 		jtfSabor.setText(sorvete.getSabor());
-		cBTipo.setText(sorvete.getTipo());
-		jtfPreço.setText(sorvete.getPreço());
+		cBTipo.setEnabled(false);
+		cBTipo.setSelectedItem(sorvete.getTipo());
+		jtfPreço.setText( sorvete.getPreco().toString());
 		jtfSabor.setEnabled(false);
 		cBTipo.setEnabled(false);
 		jtfPreço.setEnabled(false);
 		addJLabelTitulo();
-	}*/
+	}
 
 	private void addJLabelTitulo() {
 		JLabel jbTitulo = new JLabel("Visualizar Gelado");

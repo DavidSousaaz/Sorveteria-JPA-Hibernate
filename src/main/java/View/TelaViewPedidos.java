@@ -1,10 +1,18 @@
 package View;
 
+import Model.*;
+import controller.*;
+
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class TelaViewPedidos extends JFrame {
+
+    private SorveteController sorveteController = new SorveteController();
+
+    private PedidoController pedidoController = new PedidoController();
 
     private JTable tabelaPedidos;
     private DefaultTableModel modeloTabela;
@@ -12,22 +20,23 @@ public class TelaViewPedidos extends JFrame {
     private JButton btnVoltar;
     private JButton btnFinalizar;
 
-    public TelaViewPedidos() {
-        setTitle("Visualizar Pedidos");
+    public TelaViewPedidos(List<Pedido> pedidos) {
+        setTitle("Lista de Pedidos");
         setSize(500, 400);
         setLayout(null);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
-
         addComponents();
+        popularTabela(pedidos);
+
         setVisible(true);
     }
 
     private void addComponents() {
         // Modelo e tabela para exibição de pedidos
         modeloTabela = new DefaultTableModel(
-                new Object[]{"Nome do Cliente", "Quantidade", "Preço (R$)"}, 0
+                new Object[]{"Nome do Cliente", "Preço (R$)"}, 0
         );
 
         tabelaPedidos = new JTable(modeloTabela);
@@ -52,7 +61,16 @@ public class TelaViewPedidos extends JFrame {
         btnFinalizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                finalizarPedido();
+                if (tabelaPedidos.getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null, "Selecione um sorvete");
+                } else {
+                    Pedido pedidoLixo = pedidoController.listarTodosPedidos().get(tabelaPedidos.getSelectedRow());
+                    pedidoController.deletarPedido(pedidoLixo.getId());
+                    JOptionPane.showMessageDialog(null,"Pedido finalizado!");
+                    dispose();
+                    new TelaViewPedidos(pedidoController.listarTodosPedidos());
+                }
+
             }
         });
         add(btnFinalizar);
@@ -64,20 +82,35 @@ public class TelaViewPedidos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Fecha a tela atual
-                new TelaPedidos("");
+                new TelaPedidos(sorveteController.listarTodosSorvetes());
             }
         });
         add(btnVoltar);
-
-        // Dados de exemplo (remova ou substitua por dados reais)
-      //  logica para receber o pedido
-       // adicionarPedido("João Silva", 3, 45.50);
        
     }
 
-    // Método para adicionar um pedido à tabela
-    private void adicionarPedido(String nomeCliente, int quantidade, double preco) {
-        modeloTabela.addRow(new Object[]{nomeCliente, quantidade, preco});
+    private void popularTabela(List<Pedido> pedidos) {
+
+        for (Pedido a : pedidos) {
+            adicionarLinhaTabela(a);
+        }
+
+    }
+
+    public void adicionarLinhaTabela(Pedido pedido) {
+
+        Object[] linha = new Object[3];
+        linha[0] = pedido.getCliente().getNome();
+        linha[1] = pedido.getTotal();
+
+        modeloTabela.addRow(linha);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+
+        for (int i = 0; i < modeloTabela.getColumnCount(); i++) {
+            tabelaPedidos.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
 
     // Método para visualizar os dados do pedido selecionado
@@ -89,31 +122,20 @@ public class TelaViewPedidos extends JFrame {
             return;
         }
 
-        String nomeCliente = (String) modeloTabela.getValueAt(linhaSelecionada, 0);
-        int quantidade = (int) modeloTabela.getValueAt(linhaSelecionada, 1);
-        double preco = (double) modeloTabela.getValueAt(linhaSelecionada, 2);
+        Pedido pedidoTabela = pedidoController.listarTodosPedidos().get(linhaSelecionada);
+
+        Pedido pedidoVisualizar = pedidoController.buscarPedidoPorId(pedidoTabela.getId());
+
+        String nomeCliente = pedidoVisualizar.getCliente().getNome();
+        String preco = pedidoVisualizar.getTotal().toString();
+        Sorvete item = pedidoVisualizar.getItens().get(0).getSorvete();
+        String nomeItem = item.getTipo() + " Sabor: " + item.getSabor();
+        int quantidade = pedidoVisualizar.getItens().get(0).getQuantidade();
 
         JOptionPane.showMessageDialog(this, "Detalhes do Pedido:\n"
                 + "Cliente: " + nomeCliente + "\n"
-                + "Quantidade: " + quantidade + "\n"
+                + nomeItem +" \nQuantidade: " + quantidade + "\n"
                 + "Preço: R$ " + preco);
-    }
-
-    // Método para finalizar o pedido selecionado
-    private void finalizarPedido() {
-        int linhaSelecionada = tabelaPedidos.getSelectedRow();
-
-        if (linhaSelecionada == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, selecione um pedido para finalizar.");
-            return;
-        }
-
-        String nomeCliente = (String) modeloTabela.getValueAt(linhaSelecionada, 0);
-
-        // Remover a linha da tabela
-        modeloTabela.removeRow(linhaSelecionada);
-
-        JOptionPane.showMessageDialog(this, "Pedido do cliente " + nomeCliente + " finalizado com sucesso!");
     }
 
 

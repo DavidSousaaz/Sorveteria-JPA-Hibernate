@@ -1,11 +1,17 @@
 package View;
 
+import Model.*;
+import controller.*;
+
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class TelaSorvetes extends JFrame {
+
+	private SorveteController sorveteController = new SorveteController();
 
 	protected JTable tabela;
 	private DefaultTableModel modelo;
@@ -13,8 +19,8 @@ public class TelaSorvetes extends JFrame {
 
 	//private SorveteDAO sorveteDAO = SorveteDAO.getInstance();
 
-	public TelaSorvetes(String sorvetes) {
-		setTitle("Menu Inicial");
+	public TelaSorvetes(List<Sorvete> sorvetes) {
+		setTitle("Lista de Sorvetes");
 		setSize(480, 480);
 		setLayout(null);
 		setLocationRelativeTo(null);
@@ -91,35 +97,29 @@ public class TelaSorvetes extends JFrame {
 			if (tabela.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(null, "Selecione um sorvete");
 			} else {
-				/*Sorvete sorveteSelecionado = sorveteDAO.getSorvetes().get(tabela.getSelectedRow());
+				Sorvete sorveteSelecionado = sorveteController.listarTodosSorvetes().get(tabela.getSelectedRow());
 				dispose();
-				new TelaViewSorvete(sorveteSelecionado);*/
+				new TelaViewSorvete(sorveteSelecionado);
 
 			}
 		}
 
 	}
 	
-	private void popularTabela(String sorvetes) {
-		
-		if(sorvetes.equalsIgnoreCase("")) {
-			/*for (Sorvete a : sorveteDAO.getSorvetes()) {
-				adicionarLinhaTabela(a);
-			}*/
-		}else if(sorvetes.equalsIgnoreCase("deletados")) {
-			/*for (Sorvete a : sorveteDAO.getSorvetesDeletados()) {
-				adicionarLinhaTabela(a);  nao sei rpa que serve
-			}*/
-		}	
+	private void popularTabela(List<Sorvete> sorvetes) {
+
+		for (Sorvete a : sorvetes) {
+			adicionarLinhaTabela(a);
+		}
 
 	}
 
-	/*public void adicionarLinhaTabela(Sorvete sorvete) {
+	public void adicionarLinhaTabela(Sorvete sorvete) {
 
 		Object[] linha = new Object[3];
 		linha[0] = sorvete.getSabor();
 		linha[1] = sorvete.getTipo();
-		linha[2] = sorvete.getPreço();
+		linha[2] = sorvete.getPreco();
 
 		modelo.addRow(linha);
 
@@ -129,19 +129,19 @@ public class TelaSorvetes extends JFrame {
 		for (int i = 0; i < modelo.getColumnCount(); i++) {
 			tabela.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 		}
-	}*/
+	}
 
 	private class OuvinteEditar implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			if (tabela.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(null, "Selecione um sorvete");
-			} /*else {
-				Sorvete sorveteSelecionado = sorveteDAO.getSorvetes().get(tabela.getSelectedRow());
+			}else {
+				Sorvete sorveteSelecionado = sorveteController.listarTodosSorvetes().get(tabela.getSelectedRow());
 				dispose();
 				new TelaEditSorvete(sorveteSelecionado, tabela);
 
-			}*/
+			}
 		}
 	}
 
@@ -161,10 +161,10 @@ public class TelaSorvetes extends JFrame {
 			if (tabela.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(null, "Selecione um sorvete");
 			} else {
-				/*sorveteDAO.deletarSorvete(tabela.getSelectedRow());
-				repaint();*/
+				Sorvete sorveteLixo = sorveteController.listarTodosSorvetes().get(tabela.getSelectedRow());
+				sorveteController.deletarSorvete(sorveteLixo.getId());
 				dispose();
-				new TelaInicial(); 
+				new TelaSorvetes(sorveteController.listarTodosSorvetes());
 			}
 		}
 

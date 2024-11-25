@@ -3,9 +3,8 @@ package controller;
 import Model.*;
 import Util.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import java.util.List;
+import javax.persistence.*;
+import java.util.*;
 
 public class ItemPedidoController {
 

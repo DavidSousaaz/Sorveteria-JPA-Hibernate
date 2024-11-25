@@ -1,10 +1,16 @@
 package View;
 
+import Model.*;
+import controller.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.math.*;
 
 public class TelaAddSorvete extends TelaGenericaSorvete {
+
+    private SorveteController sorveteController = new SorveteController();
 
     public TelaAddSorvete() {
         super();
@@ -54,6 +60,13 @@ public class TelaAddSorvete extends TelaGenericaSorvete {
             } else if (jtfPreço == null || jtfPreço.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Necessário informar o preço!");
             } else {
+                Sorvete novoSorvete = new Sorvete();
+                novoSorvete.setSabor(jtfSabor.getText());
+                novoSorvete.setTipo((String) cBTipo.getSelectedItem());
+                novoSorvete.setPreco(new BigDecimal(jtfPreço.getText()));
+
+                sorveteController.salvarSorvete(novoSorvete);
+
                 JOptionPane.showMessageDialog(null, "Sorvete adicionado com sucesso!");
                 dispose();
                 new TelaInicial();

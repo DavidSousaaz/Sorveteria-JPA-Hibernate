@@ -2,8 +2,8 @@ package Model;
 
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.math.*;
+import java.time.*;
 import java.util.*;
 
 @Entity(name = "tb_pedido")

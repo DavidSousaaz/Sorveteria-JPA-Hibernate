@@ -3,9 +3,8 @@ package controller;
 import Model.*;
 import Util.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import java.util.List;
+import javax.persistence.*;
+import java.util.*;
 
 public class ClienteController {
 
@@ -19,6 +18,20 @@ public class ClienteController {
         } catch (Exception e) {
             if (transaction.isActive()) transaction.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Cliente buscarClientePorNome(String nome) {
+        EntityManager em = HibernateUtil.getEntityManager();
+        try {
+            // Criando uma consulta JPQL para buscar o cliente pelo nome
+            return em.createQuery("SELECT c FROM tb_cliente c WHERE c.nome = :nome", Cliente.class)
+                    .setParameter("nome", nome)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Retorna null se nenhum resultado for encontrado
         } finally {
             em.close();
         }

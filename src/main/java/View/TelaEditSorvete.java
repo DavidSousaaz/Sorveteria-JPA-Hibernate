@@ -1,27 +1,31 @@
 package View;
 
+import Model.*;
+import controller.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.math.*;
 
 public class TelaEditSorvete extends TelaGenericaSorvete {
 
-	//private Sorvete sorveteEditar;
+	private Sorvete sorveteEditar;
 
-	//List<Sorvete> listaDeSorvetes = SorveteDAO.getInstance().getSorvetes();
+	private SorveteController sorveteController = new SorveteController();
 
 	private JTable tabela;
 
-	/*public TelaEditSorvete(Sorvete sorveteEditar, JTable tabela) {
+	public TelaEditSorvete(Sorvete sorveteEditar, JTable tabela) {
 		super();
 		this.tabela = tabela;
 		this.sorveteEditar = sorveteEditar;
 		jtfSabor.setText(sorveteEditar.getSabor());
 		cBTipo.setSelectedItem(sorveteEditar.getTipo());
-		jtfPreço.setText(sorveteEditar.getPreço());
+		jtfPreço.setText(sorveteEditar.getPreco().toString());
 		addJLabelTitulo();
 		addJButtonEditar();
-	}*/
+	}
 
 	private void addJLabelTitulo() {
 		JLabel jbTitulo = new JLabel("Editar Gelado");
@@ -43,21 +47,19 @@ public class TelaEditSorvete extends TelaGenericaSorvete {
 	private class OuvinteEdit implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			/*if (jtfSabor == null || jtfSabor.getText().equals("") ) {
+			if (jtfSabor == null || jtfSabor.getText().equals("") ) {
 				JOptionPane.showMessageDialog(null, "Necessário informar o sabor!");
 			} else if(jtfPreço == null || jtfPreço.getText().equals("")){ 
 				JOptionPane.showMessageDialog(null, "Necessário informar o preço!");
 			}else {
-				boolean edicao = SorveteDAO.getInstance().editarSorvete(sorveteEditar, new Sorvete(sabor, tipo, preço));
-				if (edicao == true) {
-					JOptionPane.showMessageDialog(null, "Gelado editado com sucesso!");
-				} else {
-					JOptionPane.showMessageDialog(null, "Não foi possível editar o gelado!");
-				}
-
+				sorveteEditar.setSabor(jtfSabor.getText());
+				sorveteEditar.setPreco(new BigDecimal(jtfPreço.getText()));
+				sorveteEditar.setTipo((String) cBTipo.getSelectedItem());
+				sorveteController.salvarSorvete(sorveteEditar);
+				JOptionPane.showMessageDialog(null, " Sorvete editado com sucesso!");
 				dispose();
-				new TelaInicial();
-			}*/
+				new TelaSorvetes(sorveteController.listarTodosSorvetes());
+			}
 		}
 	}
 }

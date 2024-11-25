@@ -1,9 +1,17 @@
 package View;
 
+import Model.*;
+
 import javax.swing.*;
 import java.awt.event.*;
 
 public class TelaGenericaCliente extends JFrame {
+
+	private Cliente cliente;
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public TelaGenericaCliente() {
 		setTitle("");
