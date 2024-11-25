@@ -13,7 +13,7 @@ public class SorveteController {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            em.merge(sorvete); // merge substitui saveOrUpdate
+            em.merge(sorvete);
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) transaction.rollback();

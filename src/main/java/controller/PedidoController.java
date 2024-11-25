@@ -13,7 +13,7 @@ public class PedidoController {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            em.merge(pedido); // merge substitui saveOrUpdate
+            em.merge(pedido);
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) transaction.rollback();
@@ -26,7 +26,6 @@ public class PedidoController {
     public Pedido buscarPedidoPorId(Long id) {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
-            // Usando JOIN FETCH para garantir que os itens sejam carregados com o pedido
             return em.createQuery("SELECT p FROM tb_pedido p LEFT JOIN FETCH p.itens WHERE p.id = :id", Pedido.class)
                     .setParameter("id", id)
                     .getSingleResult(); // Para garantir que um único resultado seja retornado

@@ -13,7 +13,7 @@ public class ClienteController {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            em.merge(cliente); // merge substitui saveOrUpdate do Hibernate
+            em.merge(cliente);
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) transaction.rollback();
@@ -26,7 +26,6 @@ public class ClienteController {
     public Cliente buscarClientePorNome(String nome) {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
-            // Criando uma consulta JPQL para buscar o cliente pelo nome
             return em.createQuery("SELECT c FROM tb_cliente c WHERE c.nome = :nome", Cliente.class)
                     .setParameter("nome", nome)
                     .getSingleResult();

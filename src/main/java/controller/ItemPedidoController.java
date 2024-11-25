@@ -13,7 +13,7 @@ public class ItemPedidoController {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            em.merge(itemPedido); // merge substitui saveOrUpdate
+            em.merge(itemPedido);
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) transaction.rollback();

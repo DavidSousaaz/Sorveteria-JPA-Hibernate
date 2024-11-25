@@ -23,13 +23,11 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens;
 
-    // Construtor vazio
     public Pedido() {
         this.itens = new ArrayList<>();
         this.total = BigDecimal.ZERO;
     }
 
-    // Método para adicionar itens ao pedido e calcular o total
     public void adicionarItem(ItemPedido item) {
         if (itens == null) {
             itens = new ArrayList<>();
@@ -39,7 +37,6 @@ public class Pedido {
         calcularTotal(); // Atualiza o total do pedido
     }
 
-    // Método para calcular o total do pedido com base nos itens
     public void calcularTotal() {
         BigDecimal soma = BigDecimal.ZERO;
         for (ItemPedido item : itens) {
